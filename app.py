@@ -3,7 +3,6 @@ import os
 from flask import Flask, Response, request
 
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
 
 commands = [];
 
@@ -19,7 +18,7 @@ def peek():
 @app.route('/pop')
 def pop():
     ret = Response('\n'.join(commands), mimetype="text/plain")
-    commands = []
+    commands.clear()
     return ret;
 
 @app.route('/robots.txt')
