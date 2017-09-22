@@ -1,25 +1,32 @@
 import os
 
-from flask import Flask
-from flask import render_template
+from flask import Flask, Response, request
 
 app = Flask(__name__)
-# For Heroku, something like
-# heroku config:set APP_SETTINGS=config.ProductionConfig is appropriate.
 app.config.from_object(os.environ['APP_SETTINGS'])
 
+commands = [];
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+@app.route('/push')
+def push():
+    commands.append(request.args.get("cmd"))
+    return ""
 
+@app.route('/peek')
+def peek():
+    return Response('\n'.join(commands), mimetype="text/plain")
+
+@app.route('/pop')
+def pop():
+    ret = Response('\n'.join(commands), mimetype="text/plain")
+    commands = []
+    return ret;
 
 @app.route('/robots.txt')
 def robots():
-    res = app.make_response('User-agent: *\nAllow: /')
+    res = app.make_response('User-agent: *\nDisallow: /')
     res.mimetype = 'text/plain'
     return res
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
