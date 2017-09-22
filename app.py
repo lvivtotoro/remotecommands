@@ -22,7 +22,7 @@ def pop():
     commands.clear()
     return ret;
 
-@app.route('/outputpush')
+@app.route('/outputpush', methods=["POST"])
 def outputpush():
     output.append(request.get_data())
     return ""
