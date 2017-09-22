@@ -5,7 +5,7 @@ from flask import Flask, Response, request
 app = Flask(__name__)
 
 commands = [];
-output = [];
+outputs = [];
 
 @app.route('/push')
 def push():
@@ -24,13 +24,13 @@ def pop():
 
 @app.route('/outputpush', methods=["POST"])
 def outputpush():
-    output.append(request.get_data())
+    outputs.append(request.get_data())
     return ""
 
 @app.route('/output')
 def output():
-    ret = Response('\n\n'.join(output), mimetype="text/plain")
-    output.clear()
+    ret = Response('\n\n'.join(outputs), mimetype="text/plain")
+    outputs.clear()
     return ret;
 
 @app.route('/robots.txt')
