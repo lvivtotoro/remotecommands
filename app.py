@@ -24,7 +24,7 @@ def pop():
 
 @app.route('/outputpush', methods=["POST"])
 def outputpush():
-    outputs.append(request.get_data().decode('ascii'))
+    outputs.append(request.get_data().decode('utf-8'))
     return ""
 
 @app.route('/output')
