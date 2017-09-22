@@ -5,6 +5,7 @@ from flask import Flask, Response, request
 app = Flask(__name__)
 
 commands = [];
+output = [];
 
 @app.route('/push')
 def push():
@@ -19,6 +20,17 @@ def peek():
 def pop():
     ret = Response('\n'.join(commands), mimetype="text/plain")
     commands.clear()
+    return ret;
+
+@app.route('/outputpush')
+def outputpush():
+    output.append(request.get_data())
+    return ""
+
+@app.route('/output')
+def output():
+    ret = Response('\n\n'.join(output), mimetype="text/plain")
+    output.clear()
     return ret;
 
 @app.route('/robots.txt')
