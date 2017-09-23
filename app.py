@@ -27,6 +27,11 @@ def outputpush():
     outputs.append(request.get_data().decode('utf-8'))
     return ""
 
+@app.route('/outputpeek')
+def output():
+    ret = Response('\n\n'.join(outputs), mimetype="text/plain")
+    return ret;
+
 @app.route('/output')
 def output():
     ret = Response('\n\n'.join(outputs), mimetype="text/plain")
