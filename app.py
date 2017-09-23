@@ -18,7 +18,7 @@ def peek():
 
 @app.route('/pop')
 def pop():
-    ret = Response('\n'.join(commands), mimetype="text/plain")
+    ret = Response(commands.pop(0), mimetype="text/plain")
     commands.clear()
     return ret;
 
