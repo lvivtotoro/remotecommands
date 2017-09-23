@@ -28,7 +28,7 @@ def outputpush():
     return ""
 
 @app.route('/outputpeek')
-def output():
+def outputpeek():
     ret = Response('\n\n'.join(outputs), mimetype="text/plain")
     return ret;
 
